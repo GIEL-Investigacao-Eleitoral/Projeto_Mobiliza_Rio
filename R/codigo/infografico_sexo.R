@@ -32,6 +32,7 @@ p.description <-
 1 - 336 pessoas declararam sero do gênero feminino;
 2 - 128 pessoas declararam sero do gênero masculino;
 3 - data/período de coleta: 03/2022 até 03/2023
+Felipe, podemos colocar aqui outras analises... o que vc acha? 
 "
 col.mov <- c("#0e2f44", "#daa520")
 
@@ -108,5 +109,53 @@ agg_png('C:/Users/Hp/Desktop/Borba Mobiliza Rio/mobiliza_rio.png',
    units = "in",
    res = 300
  )
+dev.off()
+
+
+#----------------------------------------------------------------------
+#----------------------------------------------------------------------
+library(waffle)
+
+parts <- c(Feminino=72, Masculino=28)
+waffle(parts, rows=10)+
+  labs(title = p.title)
+
+
+g_plot2 <-
+  waffle(parts, rows=10)+
+  scale_fill_manual(values = col.mov,name='Sexo') +
+  theme_void() +
+  labs(title = p.title,
+       subtitle = p.description, 
+       caption = "Fonte: Grupo de Investigação Eleitoral - GIEL http://giel.uniriotec.br") +
+  theme(
+    plot.title = element_text(
+      family = "Inter", 
+      size = 28, 
+      hjust = 0.5,
+      margin = margin(t = 10, b = 10)
+    ),
+    plot.subtitle = element_text(
+      family = "Inter", 
+      size = 10,
+      margin = margin(b = 0)
+    ),
+    plot.caption = element_text(
+      family = "Inter", 
+      size = 7
+    ),
+    plot.margin = margin(10,20,5,20),
+    plot.background = element_rect(fill = "grey95", color = NA)
+  )
+
+g_plot2
+
+ggsave('C:/Users/Hp/Desktop/Borba Mobiliza Rio/mobiliza_rio2.png',
+       width = 6,
+       height = 5,
+       units = "in",
+       dpi = 300)
+# save progress -----------------------------------------------------------
+
 dev.off()
 
