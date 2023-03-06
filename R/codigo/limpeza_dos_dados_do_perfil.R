@@ -1,3 +1,4 @@
+library(dplyr)
 library(janitor)
 library(readxl)
 alunos <- read_excel("C:/Users/Hp/Desktop/Borba Mobiliza Rio/dados/Perfil alunos mobiliza rio março de 23(1).xlsx", 
@@ -129,7 +130,7 @@ alunos$bairro2 = forcats::fct_lump_min(alunos$bairro,10)
 table(alunos$bairro2)
 
 
-  
+table(alunos$bairro,alunos$nucleo)
 # http://homepage.stat.uiowa.edu/~luke/classes/STAT4580-2022/proportions.html
 
 library(dplyr)
