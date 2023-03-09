@@ -1,4 +1,4 @@
-table(alunos$SEXO)
+table(alunos$sexo)
 
 
 # load packages ----------------------------------------------------------
@@ -7,41 +7,34 @@ library(here)
 library(ragg)
 library(ggtext)
 
-
-# load data ---------------------------------------------------------------
-
-movies <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-09/movies.csv')
-
-
 # prepare data to plot ----------------------------------------------------
 
 tabela <- 
   alunos %>% 
-  group_by(SEXO) %>% 
+  group_by(sexo) %>% 
   summarise(n = n()) %>% 
   mutate(percentual = paste0(round(n/sum(n) * 100, 1), "%"),
          label = c("Feminino", "Masculino"),
          test = "test", 
-         SEXO = factor(SEXO, levels = c("FEMININO", "MASCULINO"))) 
+         sexo = factor(sexo, levels = c("FEMININO", "MASCULINO"))) 
 tabela
 
 
 p.title <- "Gênero dos participantes"
-p.description <- 
+#p.description <- 
   "Gênero dos participantes a partir do cadastro:
 1 - 336 pessoas declararam sero do gênero feminino;
 2 - 128 pessoas declararam sero do gênero masculino;
 3 - data/período de coleta: 03/2022 até 03/2023
-Felipe, podemos colocar aqui outras analises... o que vc acha? 
 "
-col.mov <- c("#0e2f44", "#daa520")
-
+#col.mov <- c("#0e2f44", "#daa520")
+col.mov <- c('blue','red')
 
 # plot --------------------------------------------------------------------
 
 g_plot <-
   ggplot(tabela, aes(y = test, x = n)) +
-  geom_col(aes(fill = forcats::fct_rev(SEXO)), 
+  geom_col(aes(fill = forcats::fct_rev(sexo)), 
            show.legend = F) +
   scale_fill_manual(values = col.mov) +
   geom_richtext(
@@ -72,8 +65,8 @@ g_plot <-
   ) +
   theme_void() +
   labs(title = p.title,
-       subtitle = p.description, 
-       caption = "Fonte: Grupo de Investigação Eleitoral - GIEL http://giel.uniriotec.br") +
+       #subtitle = p.description, 
+       caption = "Fonte: Mobiliza Rio") +
   theme(
     plot.title = element_text(
       family = "Inter", 
