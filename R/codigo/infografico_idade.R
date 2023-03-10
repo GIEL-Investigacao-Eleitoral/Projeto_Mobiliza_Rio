@@ -15,6 +15,13 @@ mutate(agg, nucleo ) %>%
   xlab("Quantidade de participantes")+
   ylab("Núcleo")+ theme_minimal()
   
+ggsave('C:/Users/Hp/Desktop/Borba Mobiliza Rio/sexo_nucleo.png',
+       width = 6,
+       height = 5,
+       units = "in",
+       dpi = 300)
+
+
 agg = agg %>%
   group_by(nucleo) %>%
   mutate(countT= sum(Freq)) %>%
