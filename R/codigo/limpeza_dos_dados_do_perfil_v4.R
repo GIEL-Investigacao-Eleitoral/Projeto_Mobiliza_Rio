@@ -80,7 +80,7 @@ alunos$nucleo = gsub('Núcleo: ','',alunos$nucleo)
 table(alunos$nucleo)
 #1 - Ensino Infantil,2 - Ensino Fundamental
 #3 - Ensino Médio,4 - Ensino Superior
-#5 - Pós-Graduação,6 - Mestrado,7 - Doutorado
+#5 - Pós-Graduação,6 - Mestrado,7 - Doutorado
 table(alunos$escolaridade)
 alunos = alunos %>%
   mutate(
@@ -91,6 +91,26 @@ alunos = alunos %>%
       escolaridade == 4 ~ "4.Ensino Superior",
       escolaridade == 5 ~ "4.Ensino Superior",
       TRUE~ '999'))
+
+
+library(stringr)
+faixas_01 = stringr::str_split(alunos$atividade_1," - ",, simplify = TRUE)
+faixas_01 = data.frame(faixas_01)
+colnames(faixas_01) = c('Modalidade','novo_nucleo','dias','horarios')
+faixas_02 = stringr::str_split(alunos$atividade_2," - ",, simplify = TRUE)
+faixas_02 = data.frame(faixas_02)
+colnames(faixas_02) = c('Modalidade','novo_nucleo','dias','horarios')
+faixas_03 = stringr::str_split(alunos$atividade_3," - ",, simplify = TRUE)
+faixas_03 = data.frame(faixas_03)
+colnames(faixas_03) = c('Modalidade','novo_nucleo','dias','horarios')
+
+table(faixas_01$dias)
+table(faixas_02$dias)
+table(faixas_03$dias)
+
+table(faixas_01$horarios)
+table(faixas_02$horarios)
+table(faixas_03$horarios)
 
 alunos$terminou_estudos = ifelse(alunos$idade<25,'idade escolar',
                                  ifelse(alunos$idade>=25,'terminou os estudos',
